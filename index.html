@@ -22,17 +22,17 @@
 <!-- Série, turma e chamada são apenas informativas (não editáveis) -->
 <p class="acesso-info">
 <span>Série: <strong id="acesso-serie">8º Ano</strong></span>
-<span>Turma: <strong id="acesso-turma">—</strong></span>
-<span>Chamada: <strong id="acesso-chamada">—</strong></span>
+<span>Turma: <strong id="acesso-turma">8A</strong></span>
+<span>Chamada: <strong id="acesso-chamada">12</strong></span>
 </p>
 
 <form id="form-acesso" class="form-acesso" autocomplete="off">
 <label for="campo-pin">PIN</label>
-<input type="password" id="campo-pin" autocomplete="off" />
+<input type="password" id="campo-pin" name="pin" autocomplete="off" inputmode="numeric" required />
 <button type="submit" id="botao-entrar" class="botao">Entrar</button>
 </form>
 
-<p class="mensagem" id="mensagem-acesso" role="status"></p>
+<p class="mensagem" id="mensagem-acesso" role="status" aria-live="polite"></p>
 </section>
 
 <!-- CONTEÚDO DO BOLETIM (aparece somente depois do login) -->
@@ -63,8 +63,8 @@
 
 <div class="card">
 <span class="card-titulo">Frequência</span>
-<span class="card-valor" id="frequencia">—</span>
-<span class="card-extra" id="frequencia-texto">—</span>
+<span class="card-valor" id="frequencia">92%</span>
+<span class="card-extra" id="frequencia-texto">Demonstrativa</span>
 </div>
 
 </section>
@@ -80,19 +80,19 @@
 <button type="button" id="botao-cancelar" class="botao botao-secundario" hidden>Cancelar</button>
 </div>
 
-<p class="mensagem" id="mensagem-edicao" role="status"></p>
+<p class="mensagem" id="mensagem-edicao" role="status" aria-live="polite"></p>
 
 <div class="tabela-wrapper">
 <table>
 <thead>
 <tr>
-<th>Disciplina</th>
-<th>1º Tri</th>
-<th>2º Tri</th>
-<th>3º Tri</th>
-<th>Média</th>
-<th>Faltas</th>
-<th>Situação</th>
+<th scope="col">Disciplina</th>
+<th scope="col">1º Tri</th>
+<th scope="col">2º Tri</th>
+<th scope="col">3º Tri</th>
+<th scope="col">Média</th>
+<th scope="col">Faltas</th>
+<th scope="col">Situação</th>
 </tr>
 </thead>
 <!-- O JavaScript vai preencher o corpo da tabela -->
