@@ -11,64 +11,101 @@
   <!-- Cabeçalho do boletim -->
   <header class="cabecalho">
     <h1>Boletim Digital</h1>
-    <p>8º Ano — Estudante Exemplo</p>
+    <p>8º Ano A — Chamada nº 12</p>
   </header>
 
   <main>
-    <!-- Cards com o resumo do boletim -->
-    <section class="cards-resumo" aria-label="Resumo do boletim">
-
-      <article class="card">
-        <h2>Média geral</h2>
-        <p class="card-valor" id="media-geral">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Total de faltas</h2>
-        <p class="card-valor" id="total-faltas">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Bom desempenho</h2>
-        <p class="card-valor" id="qtd-bom">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Precisam de atenção</h2>
-        <p class="card-valor" id="qtd-atencao">—</p>
-      </article>
-
-      <article class="card">
-        <h2>Frequência demonstrativa</h2>
-        <p class="card-valor">92%</p>
-        <p class="card-extra">Frequência adequada</p>
-      </article>
-
-    </section>
-
-    <!-- Tabela preenchida pelo JavaScript -->
-    <section class="area-tabela">
-      <h2>Notas por disciplina</h2>
-
-      <div class="tabela-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Disciplina</th>
-              <th scope="col">1º Tri</th>
-              <th scope="col">2º Tri</th>
-              <th scope="col">3º Tri</th>
-              <th scope="col">Média</th>
-              <th scope="col">Faltas</th>
-              <th scope="col">Situação</th>
-            </tr>
-          </thead>
-          <tbody id="corpo-tabela">
-            <!-- As 15 disciplinas serão inseridas pelo JavaScript -->
-          </tbody>
-        </table>
+    <!-- Área de Acesso por PIN -->
+    <section class="area-login" id="area-login">
+      <h2>Acesso ao Boletim</h2>
+      <p class="login-info">Turma: <strong>8A</strong> | Nº de chamada: <strong>12</strong></p>
+      
+      <div class="login-form">
+        <label for="campo-pin">Digite seu PIN:</label>
+        <input type="password" id="campo-pin" placeholder="Somente números" maxlength="10">
+        <button id="btn-entrar" type="button">Entrar</button>
       </div>
+      
+      <div id="mensagem-login" class="mensagem-status"></div>
     </section>
+
+    <!-- Conteúdo do Boletim (Oculto até realizar login) -->
+    <div id="conteudo-boletim" class="oculto">
+      
+      <!-- Cards com o resumo do boletim -->
+      <section class="cards-resumo" aria-label="Resumo do boletim">
+
+        <article class="card">
+          <h2>Média geral</h2>
+          <p class="card-valor" id="media-geral">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Total de faltas</h2>
+          <p class="card-valor" id="total-faltas">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Bom desempenho</h2>
+          <p class="card-valor" id="qtd-bom">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Precisam de atenção</h2>
+          <p class="card-valor" id="qtd-atencao">—</p>
+        </article>
+
+        <article class="card">
+          <h2>Frequência demonstrativa</h2>
+          <p class="card-valor">92%</p>
+          <p class="card-extra">Frequência adequada</p>
+        </article>
+
+      </section>
+
+      <!-- Área de Edição (Inicialmente oculta) -->
+      <section class="area-acoes">
+        <button id="btn-alternar-edicao" type="button" class="btn-principal">Alterar dados</button>
+      </section>
+
+      <!-- Tabela preenchida pelo JavaScript -->
+      <section class="area-tabela">
+        <div class="tabela-cabecalho-acoes">
+          <h2>Notas por disciplina</h2>
+        </div>
+
+        <div class="tabela-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Disciplina</th>
+                <th scope="col">1º Tri</th>
+                <th scope="col">2º Tri</th>
+                <th scope="col">3º Tri</th>
+                <th scope="col">Média</th>
+                <th scope="col">Faltas</th>
+                <th scope="col">Situação</th>
+              </tr>
+            </thead>
+            <tbody id="corpo-tabela">
+              <!-- As disciplinas serão inseridas pelo JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Painel de Formulário de Edição -->
+        <div id="painel-edicao" class="painel-edicao oculto">
+          <h3>Edição de Notas e Faltas</h3>
+          <div id="mensagem-edicao" class="mensagem-status"></div>
+          <div id="container-formulario-edicao" class="container-formulario"></div>
+          <div class="acoes-edicao">
+            <button id="btn-salvar-alteracoes" type="button" class="btn-salvar">Salvar alterações</button>
+            <button id="btn-cancelar-edicao" type="button" class="btn-cancelar">Cancelar</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
 
   <!-- Aviso sobre os dados de demonstração -->

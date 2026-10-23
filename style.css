@@ -22,6 +22,11 @@ body {
   line-height: 1.5;
 }
 
+/* Utilitários */
+.oculto {
+  display: none !important;
+}
+
 /* Cabeçalho */
 .cabecalho {
   padding: 32px 20px;
@@ -45,6 +50,92 @@ main {
   width: min(1200px, 100%);
   margin: 0 auto;
   padding: 28px 20px;
+}
+
+/* Área de Login */
+.area-login {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 28px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-top: 5px solid var(--rosa-escuro);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  text-align: center;
+}
+
+.area-login h2 {
+  margin: 0 0 12px;
+  color: var(--rosa-escuro);
+  font-size: 1.4rem;
+}
+
+.login-info {
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+  color: var(--texto);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.login-form label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--rosa-escuro);
+}
+
+.login-form input {
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-form input:focus {
+  border-color: var(--rosa-escuro);
+}
+
+.login-form button {
+  padding: 12px;
+  background: var(--rosa-escuro);
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.login-form button:hover {
+  opacity: 0.9;
+}
+
+/* Mensagens de status */
+.mensagem-status {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.mensagem-status.erro {
+  color: #b4234d;
+}
+
+.mensagem-status.sucesso {
+  color: #187547;
+}
+
+.mensagem-status.info {
+  color: #be185d;
 }
 
 /* Cards de resumo */
@@ -82,6 +173,28 @@ main {
   margin: 4px 0 0;
   color: var(--texto);
   font-size: 0.85rem;
+}
+
+/* Botões de Ação */
+.area-acoes {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-principal {
+  padding: 10px 20px;
+  background: var(--rosa-escuro);
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-principal:hover {
+  opacity: 0.9;
 }
 
 /* Área da tabela */
@@ -157,6 +270,98 @@ tbody tr:hover {
   font-style: italic;
 }
 
+/* Painel e Formulário de Edição */
+.painel-edicao {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px dashed var(--borda);
+}
+
+.painel-edicao h3 {
+  margin: 0 0 16px;
+  color: var(--rosa-escuro);
+}
+
+.container-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 450px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-bottom: 20px;
+}
+
+.item-edicao {
+  background: var(--rosa-claro);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--borda);
+}
+
+.item-edicao h4 {
+  margin: 0 0 12px;
+  color: var(--rosa-escuro);
+  font-size: 1rem;
+}
+
+.campos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campo-grupo label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.campo-grupo input {
+  padding: 8px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.campo-grupo input.campo-invalido {
+  border-color: #b4234d;
+  background-color: #fde8e8;
+}
+
+.acoes-edicao {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-salvar {
+  padding: 10px 20px;
+  background: #187547;
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  padding: 10px 20px;
+  background: #765465;
+  color: var(--branco);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 /* Rodapé */
 .rodape {
   padding: 20px;
@@ -193,5 +398,9 @@ tbody tr:hover {
 
   .area-tabela h2 {
     font-size: 1.2rem;
+  }
+
+  .campos-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
