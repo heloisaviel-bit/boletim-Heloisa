@@ -1,6 +1,6 @@
 /* Configurações gerais e variáveis de cores */
 :root {
-  --cor-principal: #6c5ce7;      /* Roxo elegante */
+  --cor-principal: #d05ce7;      /* Roxo elegante */
   --cor-fundo: #f8f9fa;          /* Fundo suave/branco */
   --cor-card-fundo: #ffffff;     /* Branco puro para os cards */
   --cor-texto: #2d3436;          /* Texto escuro para boa leitura */
@@ -238,4 +238,4 @@ tr:hover {
   color: #ffffff;
   font-size: 0.95rem;
   font-weight: 600;
-  cursor:
+}
