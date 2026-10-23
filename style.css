@@ -175,6 +175,73 @@ main {
   font-size: 0.85rem;
 }
 
+/* Área dos Gráficos */
+.area-graficos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.grafico-card {
+  padding: 20px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-top: 5px solid var(--rosa-medio);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.grafico-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.grafico-card h2 {
+  margin: 0 0 12px;
+  color: var(--rosa-escuro);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.grafico-card-header h2 {
+  margin-bottom: 0;
+}
+
+.grafico-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  flex: 1;
+}
+
+.grafico-container-alto {
+  height: 420px;
+}
+
+/* Badge de Alerta Visual para Faltas (Perigo) */
+.grafico-card.card-perigo {
+  border-color: #b4234d;
+  border-top-color: #b4234d;
+  box-shadow: 0 4px 18px rgba(180, 35, 77, 0.18);
+}
+
+.badge-perigo {
+  background-color: #b4234d;
+  color: var(--branco);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* Botões de Ação */
 .area-acoes {
   margin-bottom: 20px;
@@ -370,6 +437,13 @@ tbody tr:hover {
   font-size: 0.85rem;
 }
 
+/* Responsividade dos Gráficos em Tablet */
+@media (max-width: 992px) {
+  .area-graficos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* Ajustes para celulares */
 @media (max-width: 600px) {
   .cabecalho {
@@ -390,6 +464,14 @@ tbody tr:hover {
 
   .card {
     padding: 16px;
+  }
+
+  .area-graficos {
+    grid-template-columns: 1fr;
+  }
+
+  .grafico-container-alto {
+    height: 480px;
   }
 
   .area-tabela {

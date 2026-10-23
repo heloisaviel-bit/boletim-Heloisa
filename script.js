@@ -28,6 +28,11 @@ const disciplinasPadrao = [
 let disciplinasEmUso = [];
 let pinSessao = "";
 
+// Variáveis para controle das instâncias dos Gráficos
+let graficoMedias = null;
+let graficoEvolucao = null;
+let graficoFaltas = null;
+
 // Normalização para dados antigos/locais do projeto
 function normalizarNotaAntiga(valor) {
   if (valor === null || valor === undefined) {
@@ -235,6 +240,243 @@ function preencherCards() {
   document.getElementById("qtd-atencao").textContent = quantidadeAtencao;
 }
 
+/* ==========================================================================
+   FUNÇÕES DOS GRÁFICOS (SOMENTE LEITURA - NÃO MUTAM ESTADO ORIGINAL)
+   ========================================================================== */
+
+// Gráfico 1: Média por disciplina (Barras horizontais)
+function atualizarGraficoMedias() {
+  const canvas = document.getElementById("graficoMediasDisciplinas");
+  if (!canvas) return;
+
+  if (graficoMedias) {
+    graficoMedias.destroy();
+  }
+
+  const rotulos = [];
+  const valoresMedias = [];
+
+  disciplinasEmUso.forEach(item => {
+    rotulos.push(item.disciplina);
+    const media = calcularMedia(item);
+    valoresMedias.push(media !== null ? Number(media.toFixed(1)) : null);
+  });
+
+  const ctx = canvas.getContext("2d");
+  graficoMedias = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: rotulos,
+      datasets: [{
+        label: "Média",
+        data: valoresMedias,
+        backgroundColor: "#be185d",
+        borderColor: "#9d1248",
+        borderWidth: 1,
+        borderRadius: 4
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const val = context.raw;
+              if (val === null || val === undefined) return " Média: Ainda não lançada";
+              return ` Média: ${String(val).replace(".", ",")}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          min: 0,
+          max: 10,
+          ticks: { color: "#3f2935" },
+          grid: { color: "#f2d6e3" }
+        },
+        y: {
+          ticks: { color: "#3f2935", font: { size: 11 } },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+// Gráfico 2: Evolução da média geral (Linha)
+function atualizarGraficoEvolucao() {
+  const canvas = document.getElementById("graficoEvolucaoTrimestres");
+  if (!canvas) return;
+
+  if (graficoEvolucao) {
+    graficoEvolucao.destroy();
+  }
+
+  const somas = [0, 0, 0];
+  const contagens = [0, 0, 0];
+
+  disciplinasEmUso.forEach(item => {
+    const n1 = obterNotaCalculo(item.tri1);
+    const n2 = obterNotaCalculo(item.tri2);
+    const n3 = obterNotaCalculo(item.tri3);
+
+    if (n1 !== null) { somas[0] += n1; contagens[0]++; }
+    if (n2 !== null) { somas[1] += n2; contagens[1]++; }
+    if (n3 !== null) { somas[2] += n3; contagens[2]++; }
+  });
+
+  const dadosEvolucao = [
+    contagens[0] > 0 ? Number((somas[0] / contagens[0]).toFixed(1)) : null,
+    contagens[1] > 0 ? Number((somas[1] / contagens[1]).toFixed(1)) : null,
+    contagens[2] > 0 ? Number((somas[2] / contagens[2]).toFixed(1)) : null
+  ];
+
+  const ctx = canvas.getContext("2d");
+  graficoEvolucao = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["1º Tri", "2º Tri", "3º Tri"],
+      datasets: [{
+        label: "Média geral",
+        data: dadosEvolucao,
+        borderColor: "#be185d",
+        backgroundColor: "rgba(190, 24, 93, 0.1)",
+        borderWidth: 3,
+        pointBackgroundColor: "#be185d",
+        pointRadius: 5,
+        tension: 0.2,
+        spanGaps: true,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const val = context.raw;
+              if (val === null || val === undefined) return " Média Geral: Sem notas";
+              return ` Média Geral: ${String(val).replace(".", ",")}`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          min: 0,
+          max: 10,
+          ticks: { color: "#3f2935" },
+          grid: { color: "#f2d6e3" }
+        },
+        x: {
+          ticks: { color: "#3f2935" },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+// Gráfico 3: Faltas por trimestre (3 Barras + Avaliação de Perigo)
+function atualizarGraficoFaltas() {
+  const canvas = document.getElementById("graficoFaltasTrimestres");
+  if (!canvas) return;
+
+  if (graficoFaltas) {
+    graficoFaltas.destroy();
+  }
+
+  let faltasTri1 = 0;
+  let faltasTri2 = 0;
+  let faltasTri3 = 0;
+
+  disciplinasEmUso.forEach(item => {
+    if (Array.isArray(item.faltas)) {
+      const f1 = Number(item.faltas[0]);
+      const f2 = Number(item.faltas[1]);
+      const f3 = Number(item.faltas[2]);
+
+      if (Number.isFinite(f1)) faltasTri1 += f1;
+      if (Number.isFinite(f2)) faltasTri2 += f2;
+      if (Number.isFinite(f3)) faltasTri3 += f3;
+    }
+  });
+
+  const totalFaltasInterno = faltasTri1 + faltasTri2 + faltasTri3;
+  const LIMITE_REFERENCIA_INTERNA = 350;
+
+  const cardFaltas = document.getElementById("card-faltas");
+  const estadoFaltasContainer = document.getElementById("estadoFaltas");
+
+  if (totalFaltasInterno >= LIMITE_REFERENCIA_INTERNA) {
+    if (cardFaltas) cardFaltas.classList.add("card-perigo");
+    if (estadoFaltasContainer) {
+      estadoFaltasContainer.innerHTML = `<span class="badge-perigo">Perigo</span>`;
+    }
+  } else {
+    if (cardFaltas) cardFaltas.classList.remove("card-perigo");
+    if (estadoFaltasContainer) {
+      estadoFaltasContainer.innerHTML = "";
+    }
+  }
+
+  const ctx = canvas.getContext("2d");
+  graficoFaltas = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["1º Tri", "2º Tri", "3º Tri"],
+      datasets: [{
+        label: "Faltas",
+        data: [faltasTri1, faltasTri2, faltasTri3],
+        backgroundColor: "#f9c2dc",
+        borderColor: "#be185d",
+        borderWidth: 2,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              return ` ${context.label}: ${context.raw} faltas`;
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#3f2935", stepSize: 1 },
+          grid: { color: "#f2d6e3" }
+        },
+        x: {
+          ticks: { color: "#3f2935" },
+          grid: { display: false }
+        }
+      }
+    }
+  });
+}
+
+// Função agregadora dos gráficos
+function atualizarGraficos() {
+  atualizarGraficoMedias();
+  atualizarGraficoEvolucao();
+  atualizarGraficoFaltas();
+}
+
 // Realizar Login (Abrir Boletim via API)
 async function realizarLogin() {
   const campoPin = document.getElementById("campo-pin");
@@ -300,6 +542,7 @@ async function realizarLogin() {
 
     preencherTabela();
     preencherCards();
+    atualizarGraficos();
 
   } catch (erro) {
     msgLogin.textContent = "Não foi possível conectar ao servidor. Tente novamente.";
@@ -456,6 +699,7 @@ async function salvarAlteracoes() {
     disciplinasEmUso = novasDisciplinas;
     preencherTabela();
     preencherCards();
+    atualizarGraficos();
 
     msgEdicao.textContent = "Dados salvos com sucesso.";
     msgEdicao.className = "mensagem-status sucesso";

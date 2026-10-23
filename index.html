@@ -63,6 +63,35 @@
 
       </section>
 
+      <!-- Área de Gráficos do Boletim -->
+      <section class="area-graficos" aria-label="Gráficos do boletim">
+
+        <article class="grafico-card">
+          <h2>Média por disciplina</h2>
+          <div class="grafico-container grafico-container-alto">
+            <canvas id="graficoMediasDisciplinas"></canvas>
+          </div>
+        </article>
+
+        <article class="grafico-card">
+          <h2>Evolução da média geral</h2>
+          <div class="grafico-container">
+            <canvas id="graficoEvolucaoTrimestres"></canvas>
+          </div>
+        </article>
+
+        <article class="grafico-card" id="card-faltas">
+          <div class="grafico-card-header">
+            <h2>Faltas por trimestre</h2>
+            <div id="estadoFaltas"></div>
+          </div>
+          <div class="grafico-container">
+            <canvas id="graficoFaltasTrimestres"></canvas>
+          </div>
+        </article>
+
+      </section>
+
       <!-- Área de Edição (Inicialmente oculta) -->
       <section class="area-acoes">
         <button id="btn-alternar-edicao" type="button" class="btn-principal">Alterar dados</button>
@@ -113,6 +142,7 @@
     <p>Projeto escolar — todos os dados são fictícios.</p>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
