@@ -1,113 +1,81 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<!-- Deixa a página responsiva em celulares -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Boletim Digital</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boletim Digital</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- CABEÇALHO -->
-<header class="cabecalho">
-<h1>Boletim Digital</h1>
-<p class="subtitulo">8º Ano — Estudante Exemplo</p>
-</header>
+  <!-- Cabeçalho do boletim -->
+  <header class="cabecalho">
+    <h1>Boletim Digital</h1>
+    <p>8º Ano — Estudante Exemplo</p>
+  </header>
 
-<!-- ÁREA DE ACESSO POR PIN -->
-<section class="area-acesso" id="area-acesso">
-<h2>Acesso ao boletim</h2>
+  <main>
+    <!-- Cards com o resumo do boletim -->
+    <section class="cards-resumo" aria-label="Resumo do boletim">
 
-<!-- Série, turma e chamada são apenas informativas (não editáveis) -->
-<p class="acesso-info">
-<span>Série: <strong id="acesso-serie">8º Ano</strong></span>
-<span>Turma: <strong id="acesso-turma">8A</strong></span>
-<span>Chamada: <strong id="acesso-chamada">12</strong></span>
-</p>
+      <article class="card">
+        <h2>Média geral</h2>
+        <p class="card-valor" id="media-geral">—</p>
+      </article>
 
-<form id="form-acesso" class="form-acesso" autocomplete="off">
-<label for="campo-pin">PIN</label>
-<input type="password" id="campo-pin" name="pin" autocomplete="off" inputmode="numeric" required />
-<button type="submit" id="botao-entrar" class="botao">Entrar</button>
-</form>
+      <article class="card">
+        <h2>Total de faltas</h2>
+        <p class="card-valor" id="total-faltas">—</p>
+      </article>
 
-<p class="mensagem" id="mensagem-acesso" role="status" aria-live="polite"></p>
-</section>
+      <article class="card">
+        <h2>Bom desempenho</h2>
+        <p class="card-valor" id="qtd-bom">—</p>
+      </article>
 
-<!-- CONTEÚDO DO BOLETIM (aparece somente depois do login) -->
-<main id="area-boletim" hidden>
+      <article class="card">
+        <h2>Precisam de atenção</h2>
+        <p class="card-valor" id="qtd-atencao">—</p>
+      </article>
 
-<!-- ÁREA DE CARDS DE RESUMO -->
-<section class="cards-resumo">
+      <article class="card">
+        <h2>Frequência demonstrativa</h2>
+        <p class="card-valor">92%</p>
+        <p class="card-extra">Frequência adequada</p>
+      </article>
 
-<div class="card">
-<span class="card-titulo">Média Geral</span>
-<span class="card-valor" id="media-geral">—</span>
-</div>
+    </section>
 
-<div class="card">
-<span class="card-titulo">Total de Faltas</span>
-<span class="card-valor" id="total-faltas">—</span>
-</div>
+    <!-- Tabela preenchida pelo JavaScript -->
+    <section class="area-tabela">
+      <h2>Notas por disciplina</h2>
 
-<div class="card">
-<span class="card-titulo">Bom Desempenho</span>
-<span class="card-valor" id="qtd-bom">—</span>
-</div>
+      <div class="tabela-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Disciplina</th>
+              <th scope="col">1º Tri</th>
+              <th scope="col">2º Tri</th>
+              <th scope="col">3º Tri</th>
+              <th scope="col">Média</th>
+              <th scope="col">Faltas</th>
+              <th scope="col">Situação</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-tabela">
+            <!-- As 15 disciplinas serão inseridas pelo JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-<div class="card">
-<span class="card-titulo">Precisam de Atenção</span>
-<span class="card-valor" id="qtd-atencao">—</span>
-</div>
+  <!-- Aviso sobre os dados de demonstração -->
+  <footer class="rodape">
+    <p>Projeto escolar — todos os dados são fictícios.</p>
+  </footer>
 
-<div class="card">
-<span class="card-titulo">Frequência</span>
-<span class="card-valor" id="frequencia">92%</span>
-<span class="card-extra" id="frequencia-texto">Demonstrativa</span>
-</div>
-
-</section>
-
-<!-- TABELA DE NOTAS -->
-<section class="area-tabela">
-<h2>Notas por Disciplina</h2>
-
-<!-- Botões de edição -->
-<div class="barra-acoes">
-<button type="button" id="botao-alterar" class="botao">Alterar dados</button>
-<button type="button" id="botao-salvar" class="botao" hidden>Salvar alterações</button>
-<button type="button" id="botao-cancelar" class="botao botao-secundario" hidden>Cancelar</button>
-</div>
-
-<p class="mensagem" id="mensagem-edicao" role="status" aria-live="polite"></p>
-
-<div class="tabela-wrapper">
-<table>
-<thead>
-<tr>
-<th scope="col">Disciplina</th>
-<th scope="col">1º Tri</th>
-<th scope="col">2º Tri</th>
-<th scope="col">3º Tri</th>
-<th scope="col">Média</th>
-<th scope="col">Faltas</th>
-<th scope="col">Situação</th>
-</tr>
-</thead>
-<!-- O JavaScript vai preencher o corpo da tabela -->
-<tbody id="corpo-tabela"></tbody>
-</table>
-</div>
-</section>
-
-</main>
-
-<!-- Rodapé simples -->
-<footer class="rodape">
-<p>Boletim Digital — Projeto escolar (dados fictícios)</p>
-</footer>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
