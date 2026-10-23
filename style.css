@@ -1,241 +1,197 @@
-/* Configurações gerais e variáveis de cores */
+/* Cores do Boletim Digital */
 :root {
-  --cor-principal: #d05ce7;      /* Roxo elegante */
-  --cor-fundo: #f8f9fa;          /* Fundo suave/branco */
-  --cor-card-fundo: #ffffff;     /* Branco puro para os cards */
-  --cor-texto: #2d3436;          /* Texto escuro para boa leitura */
-  --cor-borda: #dfe6e9;          /* Linhas e bordas sutis */
-  --cor-sucesso: #00b894;        /* Verde para bom desempenho */
-  --cor-alerta: #d63031;         /* Vermelho/Laranja para atenção */
+  --rosa-claro: #fff1f7;
+  --rosa-medio: #f9c2dc;
+  --rosa-escuro: #be185d;
+  --texto: #3f2935;
+  --branco: #ffffff;
+  --borda: #f2d6e3;
+  --sombra: 0 4px 14px rgba(190, 24, 93, 0.08);
 }
 
+/* Configurações gerais */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  padding: 20px;
-  line-height: 1.6;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--rosa-claro);
+  color: var(--texto);
+  line-height: 1.5;
 }
 
-/* Container central para organizar o conteúdo */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Cabeçalho principal */
-.header {
+/* Cabeçalho */
+.cabecalho {
+  padding: 32px 20px;
   text-align: center;
-  margin-bottom: 30px;
-  padding: 20px 0;
+  color: var(--branco);
+  background: var(--rosa-escuro);
 }
 
-.header h1 {
-  color: var(--cor-principal);
-  font-size: 2.2rem;
-  margin-bottom: 5px;
+.cabecalho h1 {
+  margin: 0;
+  font-size: 2rem;
 }
 
-.header .subtitle {
-  color: #636e72;
-  font-size: 1.1rem;
-  font-weight: 500;
+.cabecalho p {
+  margin: 8px 0 0;
+  font-size: 1.05rem;
 }
 
-/* Grid para os cards de resumo */
-.cards-grid {
+/* Conteúdo principal */
+main {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 28px 20px;
+}
+
+/* Cards de resumo */
+.cards-resumo {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  margin-bottom: 35px;
+  gap: 16px;
+  margin-bottom: 32px;
 }
 
-/* Estilo do card com a barra roxa no topo */
 .card {
-  background-color: var(--cor-card-fundo);
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-top: 5px solid var(--cor-principal);
-  text-align: center;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-top: 5px solid var(--rosa-medio);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
 }
 
-.card h3 {
-  font-size: 0.9rem;
-  color: #636e72;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.card .card-value {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: var(--cor-texto);
-}
-
-.card .card-status {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--cor-sucesso);
-  margin-top: 5px;
+.card h2 {
+  margin: 0;
+  color: var(--rosa-escuro);
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
-/* Tabela de disciplinas e responsividade */
-.table-container {
-  background-color: var(--cor-card-fundo);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+.card-valor {
+  margin: 12px 0 0;
+  color: var(--rosa-escuro);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.card-extra {
+  margin: 4px 0 0;
+  color: var(--texto);
+  font-size: 0.85rem;
+}
+
+/* Área da tabela */
+.area-tabela {
+  padding: 24px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+}
+
+.area-tabela h2 {
+  margin: 0 0 20px;
+  color: var(--rosa-escuro);
+  font-size: 1.4rem;
+}
+
+/* Tabela responsiva */
+.tabela-wrapper {
+  width: 100%;
   overflow-x: auto;
+  border-radius: 10px;
 }
 
 table {
   width: 100%;
+  min-width: 850px;
   border-collapse: collapse;
   text-align: left;
 }
 
+thead {
+  background: var(--rosa-medio);
+}
+
 th,
 td {
-  padding: 14px 18px;
-  border-bottom: 1px solid var(--cor-borda);
+  padding: 13px 12px;
+  border-bottom: 1px solid var(--borda);
 }
 
 th {
-  background-color: #f1f2f6;
-  color: var(--cor-principal);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.85rem;
+  color: #702044;
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
-tr:hover {
-  background-color: #f9f9fb;
+td {
+  font-size: 0.9rem;
 }
 
-/* Destaques de situação */
+tbody tr:nth-child(even) {
+  background: #fff8fb;
+}
+
+tbody tr:hover {
+  background: #fde7f1;
+}
+
+/* Cores das situações das disciplinas */
 .status-bom {
-  color: var(--cor-sucesso);
+  color: #187547;
   font-weight: 600;
 }
 
 .status-atencao {
-  color: var(--cor-alerta);
+  color: #b4234d;
   font-weight: 600;
 }
 
 .status-indisponivel {
-  color: #b2bec3;
+  color: #765465;
   font-style: italic;
 }
 
-/* ==================================================
-   ESTILOS DA ESTRUTURA ATUAL DO BOLETIM DIGITAL
-   Mantém a identidade visual original em roxo e branco.
-   ================================================== */
-
-/* Cabeçalho */
-.cabecalho {
-  max-width: 1100px;
-  margin: 0 auto 30px;
-  padding: 20px 0;
+/* Rodapé */
+.rodape {
+  padding: 20px;
   text-align: center;
+  color: #765465;
+  font-size: 0.85rem;
 }
 
-.cabecalho h1 {
-  color: var(--cor-principal);
-  font-size: 2.2rem;
-  margin-bottom: 5px;
-}
+/* Ajustes para celulares */
+@media (max-width: 600px) {
+  .cabecalho {
+    padding: 24px 16px;
+  }
 
-.subtitulo {
-  color: #636e72;
-  font-size: 1.1rem;
-  font-weight: 500;
-}
+  .cabecalho h1 {
+    font-size: 1.7rem;
+  }
 
-/* Área de acesso por PIN */
-.area-acesso {
-  max-width: 460px;
-  margin: 0 auto 30px;
-  padding: 25px;
-  background-color: var(--cor-card-fundo);
-  border: 1px solid var(--cor-borda);
-  border-top: 5px solid var(--cor-principal);
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
+  main {
+    padding: 20px 12px;
+  }
 
-.area-acesso h2,
-.area-tabela h2 {
-  color: var(--cor-principal);
-  font-size: 1.3rem;
-  margin-bottom: 18px;
-}
+  .cards-resumo {
+    grid-template-columns: 1fr;
+  }
 
-.acesso-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  margin-bottom: 20px;
-  font-size: 0.95rem;
-}
+  .card {
+    padding: 16px;
+  }
 
-.acesso-info span {
-  display: inline-block;
-}
+  .area-tabela {
+    padding: 16px 12px;
+  }
 
-.acesso-info strong {
-  color: var(--cor-principal);
-}
-
-/* Formulário */
-.form-acesso {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-acesso label {
-  font-weight: 600;
-}
-
-.form-acesso input {
-  width: 100%;
-  min-height: 44px;
-  padding: 10px 12px;
-  color: var(--cor-texto);
-  background-color: #ffffff;
-  border: 1px solid #b2bec3;
-  border-radius: 7px;
-  font-size: 1rem;
-}
-
-.form-acesso input:focus,
-.campo-edicao:focus {
-  outline: 2px solid var(--cor-principal);
-  outline-offset: 2px;
-  border-color: var(--cor-principal);
-}
-
-/* Botões */
-.botao {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 10px 18px;
-  border: 1px solid var(--cor-principal);
-  border-radius: 7px;
-  background-color: var(--cor-principal);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 600;
+  .area-tabela h2 {
+    font-size: 1.2rem;
+  }
 }
